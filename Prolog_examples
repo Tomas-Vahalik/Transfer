@@ -1,0 +1,35 @@
+#!/usr/bin/swipl --consult-file
+%bubble_sort
+ordered([]) .
+ordered([_]) .
+ordered([X,Y|Z]) :- X =< Y , ordered( [Y|Z] ) .
+
+bubbleSort(L,L) :- ordered(L).
+bubbleSort(L1,L2) :-
+ append(X,[A,B|Y],L1), A > B,
+ append(X,[B,A|Y],T),
+ bubbleSort(T,L2).
+
+%middle
+same([],[]).
+same([_|L1],[_|L2]) :- same(L1,L2).
+
+middle(M,L) :-
+    append(L1, [M|L2], L),
+    same(L1, L2).
+middle(M, L) :-
+    append(L1, [M,N|L2], L),
+    same(L1, L2).
+%faktorial
+faktorial(0,1).
+faktorial(N,R):- N1 is N-1, faktorial(N1,X), R is X*N.
+
+%Fibbonacci
+otoc(S1,S2) :- otoc(S1,S2,[]).
+otoc([],Ak,Ak).
+otoc([X|S1],S2,Ak) :- otoc(S1,S2,[X|Ak]).
+
+fibbonacci(N,S) :- fib(N,S2), otoc(S,S2).
+fib(1,[1]).
+fib(2,[1,1]).
+fib(N,[Z,X,Y|S]) :- N1 is N-1, fib(N1,[X,Y|S]) ,Z is X+Y.
