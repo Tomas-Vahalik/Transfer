@@ -20,6 +20,7 @@ middle(M,L) :-
 middle(M, L) :-
     append(L1, [M,N|L2], L),
     same(L1, L2).
+
 %faktorial
 faktorial(0,1).
 faktorial(N,R):- N1 is N-1, faktorial(N1,X), R is X*N.
@@ -33,3 +34,41 @@ fibbonacci(N,S) :- fib(N,S2), otoc(S,S2).
 fib(1,[1]).
 fib(2,[1,1]).
 fib(N,[Z,X,Y|S]) :- N1 is N-1, fib(N1,[X,Y|S]) ,Z is X+Y.
+
+%second_min
+secondMin([X,Y],Y) :- X<Y.
+secondMin([X,Y],X) :- X>Y.
+secondMin([X,X|R],M) :- secondMin([X|R],M).
+
+secondMin([X,Y,Z|R],M) :- X>=Y, X>=Z, secondMin([Y,Z|R],M).
+/*Toto nam to bude rotovat do te doby, nez X >= Y a Z*/
+secondMin([X,Y,Z|R],M) :- secondMin([Y,Z,X|R],M).
+
+%second_min_s_odebranim
+min([X],X).
+min([X,Y|R],M) :- X<Y, min([X|R],M).
+min([X,Y|R],M) :- X>=Y, min([Y|R],M).
+
+
+remove([],X,[]).
+remove([X|R],X,S):- remove(R,X,S).
+remove([X|R],Y,[X|S]) :- X\=Y, remove(R,Y,S).
+
+secondMin2(S,M) :- min(S,M1), remove(S,M1,S2), min(S2,M).
+
+
+%proste_sort
+/*Je to hodne neefektivni*/
+insert(X,S,[X|S]).
+insert(X,[Y|S1],[Y|S2]) :- insert(X,S1,S2).
+
+isPermutation([],[]).
+isPermutation([X|S1],S2) :- isPermutation(S1,S3), insert(X,S3,S2).
+
+isSorted([]).
+isSorted([X]).
+isSorted([X,Y]) :- X=<Y.
+isSorted([X,Y|S]) :- X=<Y, isSorted([Y|S]).
+
+mySort(S1,S2) :- isPermutation(S1,S2), isSorted(S2).
+
