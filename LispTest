@@ -1,1 +1,68 @@
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;SECOND MIN;;;
+(defun minHelper(m s)
+ (if (eq s ())
+   m
+   (if (< (car s) m)
+     (minHelper (car s) (cdr s))
+     (minHelper m (cdr s))
+   ) 
+ ) 
+)
+
+(defun odeber(s x)
+ (if (eq s ())
+   s
+   (if (eq (car s) x) 
+     (odeber (cdr s) x)
+     (cons (car s) (odeber (cdr s) x))
+   ) 
+ )
+)
+
+(defun secondMin(s)
+  (minHelper (car (odeber s (minHelper (car s) s))) (odeber s (minHelper (car s) s)))
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;SECOND MIN2
+
+(defun secondMinHelper(s m1 m2)
+ (if (eq s ())
+   m2
+   (if (< (car s) m1)
+     (secondMinHelper (crd s) (car s) m1)
+     (if (or (null m2) (< (car s) m2))
+	(if (not (eq (car s) m1))
+	 (secondMinHelper (cdr s) m1 (car s))
+         (secondMinHelper (cdr s) m1 m2)
+        )
+	(secondMinHelper (cdr s) m1 m2)
+     )
+   )
+ )
+)
+(defun secondMin2(s)
+ (if (eq s ())
+  nil
+  (secondMinHelper s (car s) nil)
+ ) 
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;SELECT SORT
+(defun odeber2(s x)
+ (if (eq s ())
+   s
+   (if (eq (car s) x) 
+     (cdr s)
+     (cons (car s) (odeber2 (cdr s) x))
+   ) 
+ )
+
+)
+(defun selectSort(s)
+ (if (eq s ())
+   s
+  (cons (minHelper (car s) s) (selectSort(odeber2 s (minHelper (car s) s))))
+ ) 
+)
