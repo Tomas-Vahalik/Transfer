@@ -1,3 +1,106 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;:OPERACE;;;;;;;;;;;;;;;;;;;;;;;
+(defun soucet (x y)
+  (if (eq y 0)
+    x
+    (+ 1 (soucet x (- y 1))) 
+  )
+)
+
+(defun rozdil (x y)
+  (if (eq y 0)
+    x
+    (- (rozdil x (- y 1)) 1 )
+  )
+)
+
+(defun ctverec_helper (x y)
+ (if(eq y 0)
+   0
+   (soucet x (ctverec_helper x (- y 1)))
+ )
+)
+
+(defun ctverec (x)
+ (ctverec_helper x x)  
+)
+
+
+(defun soucin (x y)
+ (if(eq y 0)
+  0
+  (soucet x (soucin x (- y 1)))
+ )
+)
+(defun mocnina (n k)
+ (if (eq k 0)
+   1
+   (soucin n (mocnina n (- k 1)))
+ )
+)
+(defun podil (x y)
+ (if (eq y 0)
+  nil
+  (if (< x y)
+   0
+   (+ 1 (podil (- x y) y))
+  )
+ ) 
+)
+
+(defun modulo (x y)
+ (if (eq y 0)
+  nil
+  (if (< x y)
+   x
+   (modulo (- x y) y)
+  )
+ ) 
+)
+
+
+(defun fib (n)
+ (if (eq n 1)
+   1
+   (if (eq n 2)
+    1
+    (+ (fib (- n 1)) (fib (- n 2)))
+   )
+ )
+)
+;;;;;;;;;;;;;;;;;;;;;SEZNAMY;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun delka (a)
+ (if(eq a ())
+  0
+  (+ 1 (delka (cdr a)))
+ )
+)
+
+(defun pocetAtomu(a)
+ (if(eq a ())
+  0
+  (if(atom (car a))
+   (+ 1 (pocetAtomu (cdr a)))
+   (+ (pocetAtomu (car a)) (pocetAtomu(cdr a)))
+  )
+ )
+)
+
+(defun spoj (a b)
+ (if (eq a ())
+   b
+   (cons (car a) (spoj (cdr a) b))
+ )
+)
+
+(defun otoc (a)
+ (if (eq a () )
+  a
+  (spoj (otoc (cdr a)) (list (car a)))
+ )
+)
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;SECOND MIN;;;
